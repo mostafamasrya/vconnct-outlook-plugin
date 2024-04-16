@@ -1,0 +1,38 @@
+{
+    "en": {
+        "loginButton": "Login",
+        "emailScheduleText": "Email & Schedule Your Meetings Using",
+        "outlookPluginText": "V.connect Meet",
+        "outlookPlugin": "Outlook Plugin",
+        "scheduleMeetingButton": "Schedule a Meeting",
+        "accountRequiredText": "Account is required before using the plugin",
+        "logoutButton": "Log out",
+        "settingHeading": "Meeting Settings",
+        "moderateBtn": "Moderate",
+        "attendeeBtn": "Attendee"
+    },
+    "ar": {
+        "loginButton": "تسجيل الدخول",
+        "emailScheduleText": "قم بإرسال البريد الإلكتروني وجدولة اجتماعاتك باستخدام إضافة",
+        "outlookPluginText": "V.connect Meet",
+        "outlookPlugin": "Outlook Plugin",
+        "scheduleMeetingButton": "جدول اجتماع",
+        "accountRequiredText": "الحساب مطلوب قبل استخدام الإضافة!",
+        "logoutButton": "تسجيل الخروج",
+        "settingHeading": "إعدادات الاجتماعات",
+        "moderateBtn": "معتدل",
+        "attendeeBtn": "مشارك"
+    },
+    "ru": {
+        "loginButton": "Войти",
+        "emailScheduleText": "Отправляйте электронные письма и планируйте ваши встречи с помощью плагина",
+        "outlookPluginText": "V.connect Meet",
+        "outlookPlugin": "Outlook Plugin",
+        "scheduleMeetingButton": "Запланируйте встречу",
+        "accountRequiredText": "требуется учетная запись перед использованием!",
+        "logoutButton": "Выйти",
+        "settingHeading": "Настройки встречи",
+        "moderateBtn": "Умеренный",
+        "attendeeBtn": "Участник"
+    }
+}
