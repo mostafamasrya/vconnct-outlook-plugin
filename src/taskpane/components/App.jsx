@@ -83,30 +83,34 @@ const App = () => {
       .catch((error) => console.error(error));
   };
   async function refreshToken() {
-    const myHeaders = new Headers();
-    myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-    const urlencoded = new URLSearchParams();
-    urlencoded.append("refresh_token", localStorage.getItem("keycloak_refresh_token"));
-    const requestOptions = {
-      method: "POST",
-      headers: myHeaders,
-      body: urlencoded,
-      redirect: "follow",
-    };
-    try {
-      const response = await fetch(`${process.env.REACT_APP_SSO_SERVER}/api/refresh-token`, requestOptions);
-      if (!response.ok) {
-        throw new Error(`HTTP error! Status: ${response.status}`);
-      }
-      const data = await response.json();
-      localStorage.setItem("keycloak_token", data.access_token);
-      localStorage.setItem("keycloak_refresh_token", data.refresh_token);
+    // debugger;
 
-      return data.access_token;
-    } catch (error) {
-      console.error("Error refreshing token:", error);
-      throw error;
-    }
+    handle_Logout();
+
+    // const myHeaders = new Headers();
+    // myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
+    // const urlencoded = new URLSearchParams();
+    // urlencoded.append("refresh_token", localStorage.getItem("keycloak_refresh_token"));
+    // const requestOptions = {
+    //   method: "POST",
+    //   headers: myHeaders,
+    //   body: urlencoded,
+    //   redirect: "follow",
+    // };
+    // try {
+    //   const response = await fetch(`${process.env.REACT_APP_SSO_SERVER}/api/refresh-token`, requestOptions);
+    //   if (!response.ok) {
+    //     throw new Error(`HTTP error! Status: ${response.status}`);
+    //   }
+    //   const data = await response.json();
+    //   localStorage.setItem("keycloak_token", data.access_token);
+    //   localStorage.setItem("keycloak_refresh_token", data.refresh_token);
+
+    //   return data.access_token;
+    // } catch (error) {
+    //   console.error("Error refreshing token:", error);
+    //   throw error;
+    // }
   }
   async function getCurrentUser() {
     let accessToken = localStorage.getItem("keycloak_token");
@@ -123,13 +127,16 @@ const App = () => {
       fetchUser(response.data);
     } catch (error) {
       if (error.response && error.response.data) {
+        console.log(error.response);
         const { error: errorType, error_description: errorDescription } = error.response.data;
-        if (errorType === "invalid_token") {
+        if (error.response.status === 401) {
           console.error("Token verification failed:", errorDescription);
           setIsLoading(true);
-          await refreshToken();
-          await getCurrentUser();
+          handle_Logout();
           setIsLoading(false);
+          // await refreshToken();
+          // await getCurrentUser();
+          // setIsLoading(false);
         } else {
           console.error("Other error occurred:", errorType, errorDescription);
         }
