@@ -1,7 +1,6 @@
 import React from "react";
 import { Oval } from "react-loader-spinner";
-import { makeStyles } from "@fluentui/react-components";
-
+import { makeStyles, shorthands } from "@fluentui/react-components";
 const useStyles = makeStyles({
   overlay: {
     position: "fixed",
@@ -9,13 +8,12 @@ const useStyles = makeStyles({
     left: 0,
     width: "100%",
     height: "100%",
-    backgroundColor: "rgba(249, 255, 255, 0.858)", // semi-transparent black background
+    backgroundColor: "rgba(249, 255, 255, 0.858)", 
     display: "flex",
     alignItems: "center",
     justifyContent: "center",
     zIndex: 100,
-    transition: "opacity 0.3s ease",
-    // transitionBehavior:"ea"
+    ...shorthands.transition("opacity", "0.3s", "ease-in"),
     opacity: 0,
     pointerEvents: "none",
   },
@@ -29,10 +27,8 @@ const useStyles = makeStyles({
     marginBottom: "90%",
   },
 });
-
 const Loader = ({ loading }) => {
   const classes = useStyles();
-
   return (
     <div className={`${classes.overlay} ${loading ? classes.visible : ""}`}>
       <div className={classes.loader_container}>
@@ -54,5 +50,4 @@ const Loader = ({ loading }) => {
     </div>
   );
 };
-
 export default Loader;

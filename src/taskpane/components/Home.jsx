@@ -137,7 +137,22 @@ const Home = ({ handleScreensChange, activeLanguage, handleLanguageChange, setti
         })
         .catch((error) => {
           console.error("Error:", error);
-          setIsLoading(false);
+          // setIsLoading(false);
+          if (error.response && error.response.data) {
+            console.log(error.response);
+            const { error: errorType, error_description: errorDescription } = error.response.data;
+            if (error.response.status === 401) {
+              console.error("Token verification failed:", errorDescription);
+              setIsLoading(true);
+              handleLogout();
+              setIsLoading(false);
+            } else {
+              console.error("Other error occurred:", errorType, errorDescription);
+            }
+          } else {
+            console.error("Unknown error occurred.");
+          }
+
         });
     } catch (error) {
       console.error("Error occurred while fetching meeting time: ", error);

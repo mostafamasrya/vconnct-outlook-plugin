@@ -1,12 +1,15 @@
 import React from "react";
+import { shorthands } from "@fluentui/react-components";
 
 const CustomCheckbox = ({ attendee, onChange, label, language }) => {
   const customCheckBox = {
     appearance: "none",
     width: "17px",
     height: "17px",
-    borderRadius: "50%",
-    border: "1px solid #cccccc",
+    // borderRadius: "50%",
+    ...shorthands.border("1px", "solid", "#cccccc"),
+    ...shorthands.borderRadius("50%"),
+    // border: "1px solid #cccccc",
     backgroundColor: attendee ? "#FFA500" : "transparent",
     marginRight: "5px",
     verticalAlign: "middle",

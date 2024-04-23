@@ -82,36 +82,9 @@ const App = () => {
       })
       .catch((error) => console.error(error));
   };
-  async function refreshToken() {
-    // debugger;
-
-    handle_Logout();
-
-    // const myHeaders = new Headers();
-    // myHeaders.append("Content-Type", "application/x-www-form-urlencoded");
-    // const urlencoded = new URLSearchParams();
-    // urlencoded.append("refresh_token", localStorage.getItem("keycloak_refresh_token"));
-    // const requestOptions = {
-    //   method: "POST",
-    //   headers: myHeaders,
-    //   body: urlencoded,
-    //   redirect: "follow",
-    // };
-    // try {
-    //   const response = await fetch(`${process.env.REACT_APP_SSO_SERVER}/api/refresh-token`, requestOptions);
-    //   if (!response.ok) {
-    //     throw new Error(`HTTP error! Status: ${response.status}`);
-    //   }
-    //   const data = await response.json();
-    //   localStorage.setItem("keycloak_token", data.access_token);
-    //   localStorage.setItem("keycloak_refresh_token", data.refresh_token);
-
-    //   return data.access_token;
-    // } catch (error) {
-    //   console.error("Error refreshing token:", error);
-    //   throw error;
-    // }
-  }
+  // async function refreshToken() {
+  //   handle_Logout();
+  // }
   async function getCurrentUser() {
     let accessToken = localStorage.getItem("keycloak_token");
     const config = {
@@ -134,9 +107,6 @@ const App = () => {
           setIsLoading(true);
           handle_Logout();
           setIsLoading(false);
-          // await refreshToken();
-          // await getCurrentUser();
-          // setIsLoading(false);
         } else {
           console.error("Other error occurred:", errorType, errorDescription);
         }
@@ -173,7 +143,6 @@ const App = () => {
       }
       const result = await response.json();
       setScreen("Home");
-
       setUser(result.data);
       fetchData(result.data.name);
     } catch (error) {
@@ -240,7 +209,6 @@ const App = () => {
   return (
     <FluentProvider theme={customTheme} rtl={true}>
       <Loader loading={isLoading} />
-
       <div className={styles.root} style={{ fontFamily: getFontFamily() }}>
         {screen === "Login" && (
           <Login

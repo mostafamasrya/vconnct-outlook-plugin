@@ -51,8 +51,8 @@ const useStyles = makeStyles({
   customCheckbox: {
     position: "relative",
     display: "inline-block",
-    width: "30px", 
-    height: "30px", 
+    width: "30px",
+    height: "30px",
   },
   checkmark: {
     position: "absolute",
@@ -60,9 +60,11 @@ const useStyles = makeStyles({
     left: 0,
     height: "100%",
     width: "100%",
-    backgroundColor: "#fff", 
-    border: "2px solid #333", 
-    borderRadius: "50%", 
+    backgroundColor: "#fff",
+    // border: "2px solid #333",
+    // borderRadius: "50%",
+    ...shorthands.border("2px", "solid", "#333"),
+    ...shorthands.borderRadius("50%"),
   },
   hiddenCheckbox: {
     opacity: 0,
@@ -93,7 +95,7 @@ const Settings = ({ handleScreensChange, activeLanguage, setting_Data, setSettin
     if (option === "Moderate") {
       if (setting.moderator === false) {
         setting.moderator = true;
-        setting.attendee = true; 
+        setting.attendee = false;
       } else {
         setting.moderator = !setting.moderator;
         setting.attendee = false;
@@ -101,13 +103,13 @@ const Settings = ({ handleScreensChange, activeLanguage, setting_Data, setSettin
       }
     } else if (option === "Attendee") {
       setting.attendee = !setting.attendee;
-      if (setting.attendee === false && setting.moderator === false && setting.general) {
+      if (setting.attendee === false && setting.moderator === false && !setting.general) {
         setting.moderator = null;
         setting.attendee = null;
         setting.setting_value = false;
       }
     }
-    setSettingData(updatedSettingData); 
+    setSettingData(updatedSettingData);
   };
   const toggleContent = (section) => {
     setContentVisibility({ ...contentVisibility, [section]: !contentVisibility[section] });
@@ -125,7 +127,7 @@ const Settings = ({ handleScreensChange, activeLanguage, setting_Data, setSettin
                 ...setting,
                 setting_value: !setting.setting_value,
               };
-              if (updatedSetting.setting_value && updatedSetting.general) {
+              if (updatedSetting.setting_value && !updatedSetting.general) {
                 updatedSetting.moderator = true;
               }
               return updatedSetting;
@@ -159,7 +161,7 @@ const Settings = ({ handleScreensChange, activeLanguage, setting_Data, setSettin
           </label>
         </div>
       </div>
-      {settings.general && settings.setting_value && (
+      {settings.general === false && settings.setting_value && (
         <div
           style={{
             display: "flex",
